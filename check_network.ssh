@@ -1,0 +1,15 @@
+#!/bin/ksh
+LOG=$HOME/$(basename $0 .ksh).log
+exec 1>$LOG
+while :
+do
+	for SERVER in barton40 robeson40 robeson41 robeson42
+	do
+		echo $SERVER $(date)
+		traceroute $SERVER 2>&1
+		echo RC=$?
+	done
+	TIME=$(date +%H%M)
+	[ $TIME -gt 559 ] && break 2
+	sleep 15
+done
